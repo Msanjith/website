@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login.com</title>
+  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- Linking your CSS file -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+    <div class="form">
+        <div>
+        <h1>Login</h1>
+        <span><p>Doesn't have an account yet?<a href="#"onclick="change()">sign up</a></p></span>
+    </div>
+    <div class="box">
+        
+        <input type="email" class="mail"placeholder="email"required>
+
+    </div>
+    <div class="box">
+        
+        <input type="password"class="pass"placeholder="password"required><i class="fa fa-eye-slash" onclick="eye3()"></i>
+    </div>
+    <div class="remember">
+        <span><input type="checkbox">Remember Me</span>
+        <a href="#">Forget Password</a>
+    </div>
+    <div>
+        <button type="submit"class="btn"onclick="checkdata()">Login</button>
+    </div>
+    </div>
+    <div class="image">
+        <img src="woman-sitting-table-with-laptop-working-computer-freelance-online-education-social-media-concept-working-from-home-remote-job-flat-style-illustration_186332-28.avif">
+
+    </div>
+    <div>
+        <div class="popup">
+            <div>
+                <h1>Sign Up</h1>
+            </div>
+            <div class="box1">
+                
+                <input type="text"class="username"placeholder="username"required>
+                <input type="email"class="email" placeholder="Email Id">
+        
+            </div>
+            <div class="box1">
+                
+                <input type="password"class="password"placeholder="password"required><i class="fa fa-eye-slash" onclick="eye()"></i>
+                <input type="password" class="confirmpass"placeholder="Confrim Password"><i class="fa fa-eye-slash" onclick="eye2()"></i>
+            </div>
+           
+            <span><p>Already have an account<a href="#"onclick="login()">login</a></p></span>
+            <div>
+                <button type="submit"class="btn"onclick="modify()">Sign Up</button>
+            </div>
+        
+    </div>
+    <script>
+        var pass=document.querySelector(".pass")
+        var password=document.querySelector(".password")
+        var confirmpass=document.querySelector(".confirmpass")
+        var form=document.querySelector(".form")
+        var popup=document.querySelector(".popup")
+       function change(){
+        popup.style.display="block"
+        form.style.display="none"
+
+       }
+       function login(){
+        popup.style.display = "none";
+        form.style.display = "block";
+
+       }
+       function eye(){
+        if(password.type=="password"){
+            password.type="text"
+        }
+        else{
+            password.type="password"
+        }
+       }
+       function eye2(){
+        if(confirmpass.type=="password"){
+            confirmpass.type="text"
+        }
+        else{
+            confirmpass.type="password"
+        }
+       }
+       function eye3(){
+        if(pass.type=="password"){
+            pass.type="text"
+        }
+        else{
+            pass.type="password"
+        }
+    }
+
+       
+ function modify() {
+    var username = document.querySelector(".username").value;
+    
+    var email = document.querySelector(".email").value;
+    var password = document.querySelector(".password").value;
+
+    // Check if all fields are filled
+    if (username  && email && password) {
+        // Retrieve existing data from local storage
+        var existingData = JSON.parse(localStorage.getItem("userData")) || {};
+
+        // Check if the user already exists
+        if (existingData.hasOwnProperty(email)) {
+            alert("User already exists. Please use a different email.");
+        } else {
+            // Add new user data to existing data
+            existingData[email] = {
+                "emailId": email,
+                "password": password
+            };
+
+            // Store updated data in local storage
+            localStorage.setItem("userData", JSON.stringify(existingData));
+
+            // Reset form inputs
+            document.querySelector(".username").value = "";
+           
+            document.querySelector(".email").value = "";
+            document.querySelector(".password").value = "";
+            popup.style.display = "none";
+            form.style.display = "block";
+        }
+    } else {
+        alert("Please fill in all fields");
+    }
+}
+function checkdata() {
+    var enterEmail = document.querySelector(".mail").value;
+    var enterPassword = document.querySelector(".pass").value;
+
+    // Retrieve data from local storage
+    var userData = JSON.parse(localStorage.getItem("userData")) || {};
+
+    if (userData.hasOwnProperty(enterEmail)) {
+        var storedPassword = userData[enterEmail].password;
+
+        if (enterPassword === storedPassword ) {
+            
+            window.location.assign("website.html")
+        } else {
+            alert("Incorrect password");
+        }
+    } else {
+        alert("User not found. Please check your email.");
+    }
+
+    // Reset form inputs
+    document.querySelector(".mail").value = "";
+    document.querySelector(".pass").value = "";
+}
+
+       
+       
+
+               
+    </script>
+        
+</div>
+</body>
